@@ -1,0 +1,115 @@
+
+table, th, td {
+  border-spacing: 20px;
+}
+table {
+  width: 100%;
+  margin: 0px 0;
+  font-size: 14px;
+  font-family: Calibri;
+  border-spacing: 20px;
+  border-collapse: separate;
+}
+.cellOne {
+  padding: 12px 15px;
+  border: 1px solid black;
+  box-shadow: 0px 0 7px rgb(255 0 0);
+  width: 33%;
+  text-align: center;
+  border-radius: 10px;
+}
+.cellTwo {
+  padding: 12px 15px;
+  border: 1px solid black;
+  box-shadow: 0px 0 7px rgb(255 0 0);
+  width: 40%;
+  height: 200px;
+  /*text-align: center;*/
+  border-radius: 10px;
+}
+.cellTwoRight {
+  padding: 5px 5px;
+  border: 1px solid black;
+  box-shadow: 0px 0 7px rgb(255 0 0);
+  width: 60%;
+  height: 200px;
+  /*text-align: center;*/
+  border-radius: 10px;
+}
+.cellThree {
+  padding: 12px 15px;
+  border: 1px solid black;
+  box-shadow: 0px 0 7px rgb(255 0 0);
+  width: 100%;
+  height: 200px;
+  /*text-align: center;*/
+  border-radius: 10px;
+}
+.DatainOne{
+    font-size: 24px;
+}
+
+.example-margin {
+  margin: 0 10px;
+}
+
+.Radiobutton{
+    font-size: 16px;
+}
+.mat-elevation-z8 {
+  height: 232px;
+  overflow-x: auto;
+}
+
+tr.mat-footer-row {
+  font-weight: bold;
+}
+
+.mat-table-sticky {
+  border: 2px solid #a1c4b4;
+}
+.example-form {
+  max-height: 70px !important;
+}
+.TableOne {
+  position: relative;
+  top: -20px; 
+}
+
+
+
+
+
+
+
+
+.mat-form-field {
+  font-size: 14px;
+  width: 300px;
+  padding: 15px;
+}
+
+
+/*.mat-row .mat-cell {*/
+  /*  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;*/
+  /*cursor: pointer;
+}
+
+.mat-row:hover .mat-cell {
+  color: red;
+}*/
+
+
+
+
+.mat-column-CompanyName {
+  width: 70%;
+}
+
+.mat-elevation-z8 {
+  border-spacing: 0px;
+}
+
+/**/
+

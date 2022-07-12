@@ -1,0 +1,11 @@
+<div id="chart" *ngIf="showChart">
+  <apx-chart [series]="chartOptions.series"
+             [chart]="chartOptions.chart"
+             [labels]="chartOptions.labels"
+             [responsive]="chartOptions.responsive"
+             [title]="chartOptions.title"></apx-chart>
+</div>
+
+
+<mat-spinner *ngIf="!showChart" class="centerSpinner"></mat-spinner>
+<div *ngIf="isnodata" class="centerSpinner">No data found</div>

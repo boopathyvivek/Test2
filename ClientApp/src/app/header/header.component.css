@@ -1,0 +1,8 @@
+.headerbackgroundblur {
+  /*background-color: black;*/
+  background: rgba(255,255,255,0.5);
+  /*background: black;*/
+
+  backdrop-filter: blur(15 px);
+  /*background-color: darkslategray;*/
+}

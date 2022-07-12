@@ -1,0 +1,202 @@
+<app-header></app-header>
+<app-sidebar></app-sidebar>
+<div class="ChildPage">
+  <h3>Reports</h3>
+
+  <!--<div class="row">
+    <div class="col-md-3">-->
+      <!--<h3>Reports</h3>-->
+    <!--</div>
+    <div class="col-md-6 Radiobutton">
+      <section class="example-section">-->
+        <!--<label class="example-margin">Report on:</label>-->
+        <!--<mat-radio-group [(ngModel)]="rdbtnReport">
+          <mat-radio-button class="example-margin" value="Company">Company</mat-radio-button>
+          <mat-radio-button class="example-margin" value="Product">Product</mat-radio-button>
+          <mat-radio-button class="example-margin" value="Company_Outsourced">Outsource Company</mat-radio-button>
+
+        </mat-radio-group>
+      </section>
+    </div>
+    <div class="col-md-3">
+
+    </div>
+  </div>-->
+
+
+  <form class="example-form">
+    <mat-form-field class="example-full-widths" appearance="fill">
+      <mat-label>Company</mat-label>
+      <mat-select [formControl]="companyControl" (selectionChange)="DropdownChanged($event.value)" [(value)]="selected" >
+        <mat-option value="All">-----Select All-----</mat-option>
+        <mat-option *ngFor="let option of optionsCompany" [value]="option">
+          {{option.CompanyName}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+    <mat-form-field class="example-full-widths" appearance="fill">
+      <mat-label>Product</mat-label>
+      <mat-select [formControl]="productControl" (selectionChange)="DropdownChanged($event.value)" [(value)]="selected">
+        <mat-option value="All">-----Select All-----</mat-option>
+        <mat-option *ngFor="let option of optionsProduct" [value]="option">
+          {{option.ProductName}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-widths" appearance="fill">
+      <mat-label>Year</mat-label>
+      <mat-select [(value)]="selectedYear" [formControl]="YearControl" (selectionChange)="DropdownChanged($event.value)">
+        <mat-option value="All">-----Select All-----</mat-option>
+        <mat-option value="2020">2020</mat-option>
+        <mat-option value="2021">2021</mat-option>
+        <mat-option value="2022">2022</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+
+  </form>
+
+    <table>
+      <tr>
+        <td class="cellOne">
+          Total Orders Received<br />
+          <div class="DatainOne"><b>{{OrdersReceived}}</b></div>
+        </td>
+        <td class="cellOne">
+          Orders Completed<br />
+          <div class="DatainOne"><b>{{OrdersCompleted}}</b></div>
+        </td>
+        <td class="cellOne">
+          Orders Pending<br />
+          <div class="DatainOne"><b>{{OrdersPending}}</b></div>
+        </td>
+      </tr>
+    </table>
+
+    <table class="TableOne">
+      <tr>
+        <td class="cellTwo">
+
+          <app-pie-chart [type]="chartType" [title]="companyChartTitle" [chartData]="companyChartData"></app-pie-chart>
+
+
+        </td>
+        <td class="cellTwoRight">
+
+          <div class="example-container mat-elevation-z8">
+            <table mat-table [dataSource]="dataSourceCompany" matSort class="mat-elevation-z8">
+              <!--Progress Column-->
+              <ng-container matColumnDef="ItemId">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                <td mat-cell *matCellDef="let row"> {{row.ItemId}} </td>
+                <td mat-footer-cell *matFooterCellDef> </td>
+              </ng-container>
+              <!--Name Column-->
+              <ng-container matColumnDef="ItemName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Company Name </th>
+                <td mat-cell *matCellDef="let row"> {{row.ItemName}} </td>
+                <td mat-footer-cell *matFooterCellDef> Total </td>
+              </ng-container>
+              <ng-container matColumnDef="ItemValue">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Business </th>
+                <td mat-cell *matCellDef="let row"> {{row.ItemValue}} </td>
+                <td mat-footer-cell *matFooterCellDef> {{Total}} </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="SelectedRow(row)"
+                  [class.demo-row-is-clicked]="clickedRow == row"></tr>
+              <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
+              Row shown when there is no matching data.
+              <tr class="mat-row" *ngIf="dataSourceCompany?.length ==0">
+                <td class="mat-cell" colspan="4">No data matching the filter </td>
+              </tr>
+            </table>
+            <mat-spinner *ngIf="!DataLoaded" class="centerSpinner"></mat-spinner>
+
+          </div>
+
+
+
+        </td>
+
+      </tr>
+
+      <tr>
+        <td class="cellTwo">
+
+          <app-pie-chart [type]="chartType" [title]="productChartTitle" [chartData]="productChartData"></app-pie-chart>
+
+
+        </td>
+        <td class="cellTwoRight">
+
+          <div class="example-container mat-elevation-z8">
+            <table mat-table [dataSource]="dataSourceProduct" matSort class="mat-elevation-z8">
+
+              <ng-container matColumnDef="ItemId">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                <td mat-cell *matCellDef="let row"> {{row.ItemId}} </td>
+                <td mat-footer-cell *matFooterCellDef> </td>
+              </ng-container>
+              <!--Name Column-->
+              <ng-container matColumnDef="ItemName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Company Name </th>
+                <td mat-cell *matCellDef="let row"> {{row.ItemName}} </td>
+                <td mat-footer-cell *matFooterCellDef> Total </td>
+              </ng-container>
+              <ng-container matColumnDef="ItemValue">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Business </th>
+                <td mat-cell *matCellDef="let row"> {{row.ItemValue}} </td>
+                <td mat-footer-cell *matFooterCellDef> {{Total}} </td>
+              </ng-container>
+
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumnsProduct; sticky: true"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumnsProduct;" (click)="SelectedRow(row)"
+                  [class.demo-row-is-clicked]="clickedRow == row"></tr>
+              <tr mat-footer-row *matFooterRowDef="displayedColumnsProduct; sticky: true"></tr>
+              Row shown when there is no matching data.
+              <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+              </tr>
+            </table>
+          </div>
+
+
+
+        </td>
+
+      </tr>
+
+      <tr>
+        <!--<td>
+          
+        </td>-->
+        <td class="cellThree" colspan="2">
+
+          <div class="col-md-5">
+            <app-bar-marker-chart [data]="deliveryData" [chartData]="deliveryChartData"></app-bar-marker-chart>
+          </div>
+          <div class="col-md-7">
+            <!--<app-bar-chart [type]="barchart" [title]="barChartTitle"></app-bar-chart>-->
+            <app-mixed-bar-chart [data]="velocityData" [chartData]="velocityChartData"></app-mixed-bar-chart>
+          </div>
+        </td>
+      </tr>
+    </table>
+
+
+
+
+
+
+
+
+</div>
+
+

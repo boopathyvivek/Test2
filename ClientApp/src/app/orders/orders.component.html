@@ -1,0 +1,383 @@
+
+<app-header></app-header>
+<app-sidebar></app-sidebar>
+<div class="ChildPage">
+  <h3>Order Details</h3>
+  <mat-form-field appearance="standard" class="Filter">
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Boo" matTooltip="Search for any Keyword" #input>
+  </mat-form-field>
+
+  <div class="example-button-container">
+    <button mat-fab color="primary" matTooltip="Add new order" aria-label="Example icon button with a delete icon" (click)="openCompanyDetailsDialog()" [disabled]="isAddDisabled">
+      <mat-icon>add</mat-icon>
+      Add
+    </button>
+    <button mat-fab color="primary" matTooltip="Edit selected order" aria-label="Example icon button with a delete icon" (click)="openCompanyDetailsDialog('Edit')" [disabled]="isEditDisabled">
+      <mat-icon>edit</mat-icon>
+      Edit
+    </button>
+    <button mat-fab color="primary" matTooltip="Delete Selected order" aria-label="Example icon button with a delete icon" (click)="DeleteOrderConfirmation()" [disabled]="isDeleteDisabled">
+      <mat-icon>delete</mat-icon>
+      Delete
+    </button>
+  </div>
+
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+      <!-- ID Column -->
+      <ng-container matColumnDef="ReceivedDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Received Date </th>
+        <td mat-cell *matCellDef="let row"> {{row.ReceivedDate | date: 'shortDate'}} </td>
+      </ng-container>
+
+      <!-- Progress Column -->
+      <ng-container matColumnDef="CompanyName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Company </th>
+        <td mat-cell *matCellDef="let row"> {{row.CompanyName}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="ProductName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Product </th>
+        <td mat-cell *matCellDef="let row"> {{row.ProductName}} </td>
+      </ng-container>
+
+      <!-- Fruit Column -->
+      <!--<ng-container matColumnDef="CostperPiece">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> CostperPiece </th>
+      <td mat-cell *matCellDef="let row"> {{row.CostperPiece}} </td>
+    </ng-container>-->
+      <!-- ID Column -->
+      <ng-container matColumnDef="Quantity">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </th>
+        <td mat-cell *matCellDef="let row"> {{row.Quantity}} </td>
+      </ng-container>
+
+      <!-- Progress Column -->
+      <!--<ng-container matColumnDef="TotalPrice">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> TotalPrice </th>
+      <td mat-cell *matCellDef="let row"> {{row.TotalPrice}} </td>
+    </ng-container>-->
+      <!-- Name Column -->
+      <ng-container matColumnDef="ExpectedDeliveryDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Expected Delivery Date </th>
+        <td mat-cell *matCellDef="let row"> {{row.ExpectedDeliveryDate | date: 'shortDate'}} </td>
+      </ng-container>
+
+      <!-- Fruit Column -->
+      <ng-container matColumnDef="ActualDeliveryDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Actual Delivery Date </th>
+        <td mat-cell *matCellDef="let row"> {{row.ActualDeliveryDate | date: 'shortDate'}} </td>
+      </ng-container>
+
+
+
+
+      <!-- ID Column -->
+      <ng-container matColumnDef="CreatedBy">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Created By </th>
+        <td mat-cell *matCellDef="let row"> {{row.CreatedBy}} </td>
+      </ng-container>
+
+      <!-- Progress Column -->
+      <ng-container matColumnDef="CreatedDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Created Date </th>
+        <td mat-cell *matCellDef="let row"> {{row.CreatedDate | date: 'shortDate'}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="ModifiedBy">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Modified By </th>
+        <td mat-cell *matCellDef="let row"> {{row.ModifiedBy}} </td>
+      </ng-container>
+
+      <!-- Fruit Column -->
+      <ng-container matColumnDef="ModifiedDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Modified Date </th>
+        <td mat-cell *matCellDef="let row"> {{row.ModifiedDate| date: 'shortDate'}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="SelectedRow(row)"
+          [class.demo-row-is-clicked]="clickedRow == row"></tr>
+
+      <!-- Row shown when there is no matching data. -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+      </tr>
+    </table>
+    <mat-spinner *ngIf="!DataLoaded" class="centerSpinner"></mat-spinner>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+  </div>
+
+
+
+
+</div>
+
+
+<ng-template #editCompanyModal>
+  <div class="mat-dialog-header border-bottom">
+    <h2 mat-dialog-title class="mb-0">Add/Edit Orders </h2> <div class="sameline rightalign">Status: <b>{{orderStatus}}</b></div>
+
+    <form class="example-form">
+      <mat-form-field class="example-full-widths" appearance="fill">
+        <mat-label>Company</mat-label>
+        <mat-select [formControl]="companyControl" required>
+          <mat-option>--</mat-option>
+          <mat-option *ngFor="let option of optionsCompany" [value]="option">
+            {{option.CompanyName}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="companyControl.hasError('required')">Please choose a Company</mat-error>
+        <!--<mat-hint>{{companyControl.value?.CompanyID}}</mat-hint>-->
+      </mat-form-field>
+
+
+      <mat-form-field class="example-full-widths" appearance="fill">
+        <mat-label>Product</mat-label>
+        <mat-select [formControl]="productControl" (selectionChange)="ProductChanged($event.value)" required>
+          <mat-option>--</mat-option>
+          <mat-option *ngFor="let option of optionsProduct" [value]="option">
+            {{option.ProductName}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="productControl.hasError('required')">Please choose a product</mat-error>
+        <!--<mat-hint>{{productControl.value?.ProductID}}</mat-hint>-->
+      </mat-form-field>
+
+      <!-- Number -->
+      <mat-form-field class="AutopopulatedFields" appearance="fill">
+        <mat-label>Quantity</mat-label>
+        <input type="number" matInput [formControl]="numberFormControl" [errorStateMatcher]="matcher" value="{{Quantity}}"
+               placeholder="Ex. 1234" required>
+        <!--<mat-hint>Valid Number</mat-hint>-->
+        <mat-error *ngIf="numberFormControl.hasError('number') && !numberFormControl.hasError('required')">
+          Please enter a valid number
+        </mat-error>
+        <mat-error *ngIf="numberFormControl.hasError('required')">
+          Quantity is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="AutopopulatedFields" appearance="fill">
+        <mat-label>Cost per piece</mat-label>
+        <input type="number" matInput [formControl]="CostperpieceControl" [errorStateMatcher]="matcher" value="{{Costperpiece}}"
+               placeholder="Ex. 1234" required>
+        <mat-error *ngIf="CostperpieceControl.hasError('number') && !CostperpieceControl.hasError('required')">
+          Please enter a valid number
+        </mat-error>
+        <mat-error *ngIf="CostperpieceControl.hasError('required')">
+          Cost per piece is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+
+
+
+      <!--<mat-form-field class="AutopopulatedFields" appearance="fill">
+      <mat-label>Total</mat-label>
+      <input matInput placeholder="NA" value="Sushi">
+    </mat-form-field>-->
+
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Received Date</mat-label>
+        <input matInput [matDatepicker]="Rpicker" [formControl]="ReceivedDateControl" value="{{ReceivedDate}}" required>
+        <mat-datepicker-toggle matSuffix [for]="Rpicker"></mat-datepicker-toggle>
+        <mat-datepicker #Rpicker></mat-datepicker>
+        <mat-error *ngIf="ReceivedDateControl.hasError('required')">
+          Received Date is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Expected Delivery Date</mat-label>
+        <input matInput [matDatepicker]="Epicker" [formControl]="DeliveryDateControl" value="{{DeliveryDate}}" required>
+        <mat-datepicker-toggle matSuffix [for]="Epicker"></mat-datepicker-toggle>
+        <mat-datepicker #Epicker></mat-datepicker>
+        <mat-error *ngIf="DeliveryDateControl.hasError('required')">
+          Expected Delivery Date <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="DeliveryDateControl.value < ReceivedDateControl.value">Expected date can't be less than Received date</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Actual Delivery Date</mat-label>
+        <input matInput [matDatepicker]="Apicker" [formControl]="ActualDeliveryDateControl" value="{{ActualDeliveryDate}}" >
+        <mat-datepicker-toggle matSuffix [for]="Apicker"></mat-datepicker-toggle>
+        <mat-datepicker #Apicker></mat-datepicker>
+      </mat-form-field>
+
+
+      <section class="example-section">
+        <mat-checkbox class="example-margin" value="{{IsOrderOutsourced}}" (change)="SetOrderSourced($event.checked)" [checked]="IsOrderOutsourced">Order Outsourced</mat-checkbox>
+      </section>
+
+
+      <div *ngIf="IsOrderOutsourced" class="OutsourceDetails">
+        <!--<mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Outsource Company</mat-label>
+        <input type="text"
+               placeholder="Pick one"
+               aria-label="Number"
+               matInput
+               [formControl]="myControlCompany_Outsourced"
+               [matAutocomplete]="auto"
+               ngControl="Company_Outsourced">
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          <mat-option *ngFor="let option of filteredOptionsCompany_Outsourced | async" [value]="option.CompanyName">
+            {{option.CompanyName}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>-->
+
+        <mat-form-field class="example-full-widths" appearance="fill">
+          <mat-label>Outsource Company</mat-label>
+          <mat-select [formControl]="companyControl_Outsourced">
+            <mat-option>--</mat-option>
+            <mat-option *ngFor="let option of optionsCompany_Outsourced" [value]="option">
+              {{option.CompanyName}}
+            </mat-option>
+          </mat-select>
+
+          <!--<mat-hint>{{companyControl_Outsourced.value?.CompanyID}}</mat-hint>-->
+        </mat-form-field>
+
+        <mat-form-field class="AutopopulatedFields" appearance="fill">
+          <mat-label>Quantity</mat-label>
+          <input type="number" matInput [formControl]="Quantity_OutsourcedControl" [errorStateMatcher]="matcher" value="{{Quantity_Outsourced}}"
+                 placeholder="Ex. 1234">
+          <mat-error *ngIf="Quantity_OutsourcedControl.hasError('number') && !Quantity_OutsourcedControl.hasError('required')">
+            Please enter a valid number
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="AutopopulatedFields" appearance="fill">
+          <mat-label>Bill</mat-label>
+          <input type="number" matInput [formControl]="bill_OutsourcedControl" [errorStateMatcher]="matcher" value="{{bill_Outsourced}}"
+                 placeholder="Ex. 1234">
+          <mat-error *ngIf="bill_OutsourcedControl.hasError('number') && !bill_OutsourcedControl.hasError('required')">
+            Please enter a valid number
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <!--<mat-form-field class="AutopopulatedFields" appearance="fill">
+      <mat-label>Cost per piece</mat-label>
+      <input matInput placeholder="NA" value="100" disabled="disabled">
+    </mat-form-field>
+
+
+    <mat-form-field class="AutopopulatedFields" appearance="fill">
+      <mat-label>Total Price</mat-label>
+      <input matInput placeholder="NA" value="100" disabled="disabled">
+    </mat-form-field>-->
+
+
+
+
+
+      <section class="example-section">
+        <mat-checkbox class="example-margin" value="{{IsDiscount}}" (change)="SetDiscount($event.checked)" [checked]="IsDiscount">Add Discount</mat-checkbox>
+      </section>
+
+      <div *ngIf="IsDiscount" class="sameline">
+        <mat-form-field class="AutopopulatedFields" appearance="fill">
+          <mat-label>Discount</mat-label>
+          <input type="number" matInput [formControl]="discountControl" [errorStateMatcher]="matcher" value="{{discount}}"
+                 placeholder="Ex. 1234">
+          <mat-error *ngIf="IsDiscount && discountControl.hasError('number') && !discountControl.hasError('required')">
+            Please enter a valid number
+          </mat-error>
+          <mat-error *ngIf="IsDiscount && discountControl.hasError('required')">
+            Discount is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+
+      <div class="costdetails" *ngIf="userDetails?.AccessLevel > 3">
+
+        <table class="costdetailstable">
+          <!--<tr>
+          <td>
+            Cost per piece
+          </td>
+          <td>
+            {{Costperpiece}}
+          </td>
+        </tr>-->
+          <tr>
+            <td>
+              Total (without tax)
+            </td>
+            <td>
+              {{numberFormControl?.value * CostperpieceControl?.value}}  ({{numberFormControl?.value}} * {{CostperpieceControl?.value}})
+            </td>
+          </tr>
+          <tr>
+            <td>
+              GST Charges ({{GSTUsed}}%)
+            </td>
+            <td>
+              {{GSTUsed * numberFormControl?.value * CostperpieceControl?.value/100}}
+              &nbsp;&nbsp;&nbsp;&nbsp;
+              <section class="sameline">
+                <mat-checkbox class="example-margin" value="{{GST}}" (change)="SetGST($event.checked)" [checked]="GST">GST Included</mat-checkbox>
+              </section>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Discount
+            </td>
+            <td>
+              {{discountControl.value}}
+            </td>
+          </tr>
+          <tr class="totalcharge">
+            <td>
+              Total
+            </td>
+            <td>
+
+
+
+              <!--{{TotalCharge}}-->
+              {{((numberFormControl?.value * CostperpieceControl?.value) + (GSTUsed * numberFormControl?.value * CostperpieceControl?.value/100)) - discountControl.value | number : '1.2-2' }}
+
+            </td>
+          </tr>
+
+          <tr class="Note">
+            <td colspan="2">Note: Used GST-{{GSTUsed}}%. Current GST- {{GSTfromDB}}%</td>
+          </tr>
+        </table>
+      </div>
+    </form>
+
+    <section class="example-section">
+      <mat-checkbox class="example-margin" value="{{isOrderDelivered}}" (change)="SetOrderDelivered($event.checked)" [checked]="isOrderDelivered" [disabled]="this.clickedRow.Status!=1">Billing Done</mat-checkbox>
+    </section>
+
+    <div class="popupButtons">
+      <mat-card-actions>
+        <button mat-raised-button (click)="SaveOrderConfirmation()" color="primary" [disabled]="!companyControl?.value?.CompanyID > 0 || !productControl?.value?.ProductID > 0 || !numberFormControl?.value > 0 || !CostperpieceControl?.value > 0 || !ReceivedDateControl?.value || !DeliveryDateControl?.value">{{AddUpdateButton}}</button>
+      </mat-card-actions>&nbsp;&nbsp;
+      <mat-card-actions>
+        <button mat-raised-button matDialogClose color="primary">Cancel</button>
+      </mat-card-actions>
+    </div>
+
+    <div class="footerNote">Note: Fields marked as * is MANDATORY</div>
+
+  </div>
+</ng-template>
+
+
+
+
+

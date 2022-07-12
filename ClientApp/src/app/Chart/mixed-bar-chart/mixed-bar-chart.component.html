@@ -1,0 +1,16 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div id="chart" *ngIf="showChart">
+  <apx-chart [series]="chartOptions.series"
+             [chart]="chartOptions.chart"
+             [yaxis]="chartOptions.yaxis"
+             [xaxis]="chartOptions.xaxis"
+             [labels]="chartOptions.labels"
+             [stroke]="chartOptions.stroke"
+             [title]="chartOptions.title"
+             [dataLabels]="chartOptions.dataLabels"
+             [fill]="chartOptions.fill"
+             [tooltip]="chartOptions.tooltip"></apx-chart>
+</div>
+
+<mat-spinner *ngIf="!showChart" class="centerSpinner"></mat-spinner>
+

@@ -1,0 +1,54 @@
+<h2 mat-dialog-title>{{data.head}}</h2>
+<div *ngIf="data.from == 'blog'">
+  <!--<mat-dialog-content class="mat-typography">
+    <p>
+      When the manufacturing team at Geospace Technologies was looking for better tool life and improved performance on a Titanium CNC milling job, they turned to Harvey Performance Company and local Application Engineer Mike Kanigowski to dial in some Helical Solutions End Mills. With Mike’s help, Geospace Technologies, led by Lead Mill Programmer Tranquilino Sosa, achieved massive success and extensive titanium machining cost savings, which led them to completely shift their tooling repertoire to Helical’s high-performance end mills in their shop.
+    </p>
+    <h3>Struggling With Tool Life</h3>
+    <p>
+      Prior to switching to Helical, Geospace Technologies was experiencing trouble with tool life on a job that required both roughing and finishing toolpaths on a Titanium (Ti-6AL-4V) part. For their roughing pass, Geospace was using a competitor’s 4 flute, 3/8” diameter end mill with a 30° helix angle and TiALN coating. In traditional roughing toolpaths, this tool was running at 1,750 RPM with a 10 IPM feed rate. The tool would take four step downs, three with an axial depth of cut of .200”, and a final pass at .100” for a total depth of .700”.
+    </p>
+    <p>
+      When finishing, the team used a 1/2” version of the same competitor tool, running at 900 RPM with an 8 IPM feed rate. This would take two passes, one at .400” deep and the last down to the bottom of the part at .700”.
+    </p>
+    <img src="assets/img/blog1inner1.jpg" alt="" class="blogpic1">
+    <p>
+      With this strategy and tooling, the team was creating high-quality parts at a cycle time of 15 minutes and 22 seconds per part, but were only seeing the roughing tool last for 60 parts on average, and the finishing tool for around 120 parts. This was causing tool costs to be higher than they would like, and costing the team precious time with frequent tool changes.
+    </p>
+    <p>
+      Sosa had seen some of the success that other shops were having with Titanium milling using Helical Solutions end mills, and so they reached out to Kanigowski to see how Helical could help them lower their cost per part while achieving an even better finish.
+    </p>
+
+    <h3>
+      Experiencing the "Helical Difference"
+    </h3>
+    <p>
+      With the new tools in place, Sosa’s team reached out to Helical for help dialing in speeds and feeds. The Helical tech team was able to get them set up on Machining Advisor Pro, an advanced speeds and feeds calculator developed by the experts behind Helical Solutions tooling. With this “miracle worker” application in their arsenal, the team was able to easily dial in their new tools for their specific material grade, depth of cut, and machine setup.
+    </p>
+    <p>
+      The team saw immediate positive results and cost-savings on this job. They were able to increase their roughing toolpaths to 4,500 RPM and 157 IPM. The finishing path remained largely the same, but resulted in a much improved final part. In total, cycle time dropped from 15 minutes and 22 seconds per part to 12 minutes and 17 seconds per part, which was great, but the improvement in tool life was where Sosa was most impressed.
+    </p>
+    <img src="assets/img/blog1inner2.jpg" alt="" class="blogpic1">
+    <p>
+      With the new Helical end mill in the shop, Geospace was able to run both tools for 580 parts with very minimal wear on the tool. This was a nearly 1000% improvement in tool life for their roughing passes and a 483% improvement in tool life for the finishing operation. In total, one roughing tool was able to last more than 42 hours in the cut before needing to be replaced.
+    </p>
+    <p>
+      Eliminating the need for a tool change every 60 parts was also a significant time-saver. Constant tool changes were causing serious machine downtime, which was eliminated with the longer tool life experienced with the Helical end mills. What seems like a minor inconvenience will truly add up to dozens of hours in saved time over the course of a few months for Sosa’s team.
+    </p>
+  </mat-dialog-content>-->
+
+  <iframe [src]="blogURLfn()" width="750" height="550"></iframe>
+</div>
+
+
+<div *ngIf="data.from == 'Others'">
+  <mat-dialog-content class="mat-typography">
+    {{data.body}}
+  </mat-dialog-content>
+
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Confirm</button>
+  </mat-dialog-actions>
+</div>

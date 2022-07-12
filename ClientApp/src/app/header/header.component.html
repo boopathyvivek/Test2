@@ -1,0 +1,42 @@
+<div class="header" [class.headerbackgroundblur]="headerbackgroundblur">
+  <div class="container">
+    <nav class="navbar navbar-inverse" role="navigation">
+      <div class="navbar-header">
+        <button type="button" id="nav-toggle" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a href="#" class="nav-link active navbar-brand scroll-top">
+          <div class="logo">𝓢𝓪𝓷𝓽𝓮𝓬</div>
+        </a>
+      </div>
+      <!--/.navbar-header-->
+      <div id="main-nav" class="collapse navbar-collapse" *ngIf="isHomePage">
+        <ul class="nav navbar-nav">
+          <li><a href="#" class="scroll-top">Home</a></li>
+          <li><a href="#" class="scroll-link" data-id="about">About Us</a></li>
+          <li><a href="#" class="scroll-link" data-id="portfolio">Team</a></li>
+          <li><a href="#" class="scroll-link" data-id="blog">Blog</a></li>
+          <li><a href="#" class="scroll-link" data-id="contact">Contact Us</a></li>
+          <li (click)="Login()" class="headerLink"><a class="scroll-link">{{UserName}}</a></li>
+
+        </ul>
+      </div>
+      <div id="main-nav" class="collapse navbar-collapse" *ngIf="!isHomePage && !isLoginPage">
+        <ul class="nav navbar-nav">
+          <!--<li class="Logout">{{userDetails?.UserName}}</li>
+          <li class="headerLink"><a class="scroll-link">{{UserName}}</a></li>-->
+
+          <li (click)="Logout()" class="Logout">
+            Logout
+          </li>
+        </ul>
+      </div>
+      <!--/.navbar-collapse-->
+    </nav>
+    <!--/.navbar-->
+  </div>
+  <!--/.container-->
+</div>

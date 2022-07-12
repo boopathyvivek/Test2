@@ -1,0 +1,52 @@
+<div class="sidenav">
+
+  <div (click)="NavigatetoPage('orders')" [class.SideMenubuttonactive]="Orders">
+    <a>
+      <button mat-fab color="primary" aria-label="Example icon button with a delete icon" class="SideMenubuttonSize">
+        <mat-icon>shopping_cart</mat-icon>
+      </button>
+      Orders
+    </a>
+  </div>
+  <div (click)="NavigatetoPage('company')" [class.SideMenubuttonactive]="company">
+    <a>
+      <button mat-fab color="primary" aria-label="Example icon button with a delete icon" class="SideMenubuttonSize">
+        <mat-icon>work</mat-icon>
+      </button>
+      Company
+    </a>
+  </div>
+  <div (click)="NavigatetoPage('product')" [class.SideMenubuttonactive]="product">
+    <a>
+      <button mat-fab color="primary" aria-label="Example icon button with a delete icon" class="SideMenubuttonSize">
+        <mat-icon>subtitles</mat-icon>
+      </button>
+      Products
+    </a>
+  </div>
+  <div *ngIf="Accesslevel > 3" (click)="NavigatetoPage('contacts')" [class.SideMenubuttonactive]="contacts">
+    <a>
+      <button mat-fab color="primary" aria-label="Example icon button with a delete icon" class="SideMenubuttonSize">
+        <mat-icon>comment</mat-icon>
+      </button>
+      Contacts
+    </a>
+  </div>
+  <div *ngIf="Accesslevel > 3" (click)="NavigatetoPage('user')" [class.SideMenubuttonactive]="user">
+    <a>
+      <button mat-fab color="primary" aria-label="Example icon button with a delete icon" class="SideMenubuttonSize">
+        <mat-icon>person</mat-icon>
+      </button>
+      Users
+    </a>
+  </div>
+  <div *ngIf="Accesslevel > 3" (click)="NavigatetoPage('report')" [class.SideMenubuttonactive]="report">
+    <a>
+      <button mat-fab color="primary" aria-label="Example icon button with a delete icon" class="SideMenubuttonSize">
+        <mat-icon>person</mat-icon>
+      </button>
+      Report
+    </a>
+  </div>
+
+</div>
