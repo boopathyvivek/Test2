@@ -1,6 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\SantecAPI",
+    "\\SantecAPI\\Controllers"
   ],
+  "SelectedNode": "\\SantecAPI\\Controllers\\CompanyController.cs",
   "PreviewInSolutionExplorer": false
 }
